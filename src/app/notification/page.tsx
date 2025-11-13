@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Check, CircleCheck, CircleX, DollarSign } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function NotificationsPage() {
     return (
         <div className="flex-1 overflow-y-scroll min-h-screen">
             <div className="grid grid-cols-12">
-                <div className="col-start-3 col-span-8 p-6">
+                <div className=" col-span-12 p-6 md:col-start-3 md:col-span-8">
 
                     {/* header section */}
                     <div className="flex justify-between items-center w-full gap-2 pb-2 p-10">
@@ -73,12 +73,12 @@ export default function NotificationsPage() {
                             </TabsList>
                             <TabsContent value="all" className="flex flex-col gap-4 mt-4">
                                 {sortedNotifications.map((notification, notificationIndex) => (
-                                    <Card key={notificationIndex}>
+                                    <Card key={notificationIndex} className={`${!notification.read ? "border border-s-4 border-s-red-500" : null}`}>
                                         <CardContent className="flex justify-between">
                                             <div className="flex gap-4">
                                                 <DollarSign />
                                                 <div className="">
-                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge>New</Badge> : null}</p>
+                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge className="bg-red-500">New</Badge> : null}</p>
                                                     <p className="text-sm text-neutral-600 font-medium">{notification.message}</p>
                                                     <p className="text-sm text-neutral-600">{notification.time}</p>
                                                 </div>
@@ -95,12 +95,12 @@ export default function NotificationsPage() {
                             </TabsContent>
                             <TabsContent value="unread" className="flex flex-col gap-4 mt-4">
                                 {filteredPayments.map((notification, notificationIndex) => (
-                                    <Card key={notificationIndex}>
+                                    <Card key={notificationIndex} className={`${!notification.read ? "border border-s-4 border-s-red-500" : null}`}>
                                         <CardContent className="flex justify-between">
                                             <div className="flex gap-4">
                                                 <DollarSign />
                                                 <div className="">
-                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge>New</Badge> : null}</p>
+                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge className="bg-red-500">New</Badge> : null}</p>
                                                     <p className="text-sm text-neutral-600 font-medium">{notification.message}</p>
                                                     <p className="text-sm text-neutral-600">{notification.time}</p>
                                                 </div>
@@ -116,12 +116,12 @@ export default function NotificationsPage() {
                                 ))}</TabsContent>
                             <TabsContent value="payments" className="flex flex-col gap-4 mt-4">
                                 {filteredPayments.map((notification, notificationIndex) => (
-                                    <Card key={notificationIndex}>
+                                    <Card key={notificationIndex} className={`${!notification.read ? "border border-s-4 border-s-red-500" : null}`}>
                                         <CardContent className="flex justify-between">
                                             <div className="flex gap-4">
                                                 <DollarSign />
                                                 <div className="">
-                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge>New</Badge> : null}</p>
+                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge className="bg-red-500">New</Badge> : null}</p>
                                                     <p className="text-sm text-neutral-600 font-medium">{notification.message}</p>
                                                     <p className="text-sm text-neutral-600">{notification.time}</p>
                                                 </div>
@@ -137,12 +137,12 @@ export default function NotificationsPage() {
                                 ))}</TabsContent>
                             <TabsContent value="maintenance" className="flex flex-col gap-4 mt-4">
                                 {filteredPayments.map((notification, notificationIndex) => (
-                                    <Card key={notificationIndex}>
+                                    <Card key={notificationIndex} className={`${!notification.read ? "border border-s-4 border-s-red-500" : null}`}>
                                         <CardContent className="flex justify-between">
                                             <div className="flex gap-4">
                                                 <DollarSign />
                                                 <div className="">
-                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge>New</Badge> : null}</p>
+                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge className="bg-red-500">New</Badge> : null}</p>
                                                     <p className="text-sm text-neutral-600 font-medium">{notification.message}</p>
                                                     <p className="text-sm text-neutral-600">{notification.time}</p>
                                                 </div>
@@ -158,12 +158,12 @@ export default function NotificationsPage() {
                                 ))}</TabsContent>
                             <TabsContent value="leases" className="flex flex-col gap-4 mt-4">
                                 {filteredPayments.map((notification, notificationIndex) => (
-                                    <Card key={notificationIndex}>
+                                    <Card key={notificationIndex} className={`${!notification.read ? "border border-s-4 border-s-red-500" : null}`}>
                                         <CardContent className="flex justify-between">
                                             <div className="flex gap-4">
                                                 <DollarSign />
                                                 <div className="">
-                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge>New</Badge> : null}</p>
+                                                    <p className="text-base font-semibold flex items-center gap-2">{notification.title} {!notification.read ? <Badge className="bg-red-500">New</Badge> : null}</p>
                                                     <p className="text-sm text-neutral-600 font-medium">{notification.message}</p>
                                                     <p className="text-sm text-neutral-600">{notification.time}</p>
                                                 </div>

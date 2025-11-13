@@ -12,7 +12,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { Building2, Bell, Calendar, FileText, Settings, Home, Users, DollarSign, BarChart3, Wrench } from "lucide-react";
+import { Building2, Bell, Calendar, FileText, Settings, Home, Users, DollarSign, BarChart3, Wrench, FlaskConical, IdCard } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
@@ -26,6 +26,7 @@ const navItems = [
     { title: "Users", url: "/users", icon: Users },
     { title: "Notification", url: "/notification", icon: Bell },
     { title: "Settings", url: "/settings", icon: Settings },
+    { title: "Authentication", url: "/authentication", icon: IdCard },
 ];
 
 export default function CustomSideBar() {
