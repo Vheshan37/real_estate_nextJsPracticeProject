@@ -3,24 +3,74 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LoginAction } from "@/lib/actions/authenticationAction";
-import { startTransition, useActionState, useState } from "react";
+import { useFormAction } from "@/hooks/use-action-hook";
+import {
+  LoginAction,
+  RegisterAction,
+} from "@/lib/actions/authenticationAction";
+import { startTransition, useActionState, useEffect, useState } from "react";
 
 export default function Auth2() {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const [loginState, loginAction, isLoggingIn] = useActionState(
-    async () =>
-      LoginAction({ username: loginUsername, password: loginPassword }),
-    null
+  const [registerName, setRegisterName] = useState("");
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+
+  const {
+    state: loginState,
+    pending: isLoggingIn,
+    run: login,
+  } = useFormAction(async () =>
+    LoginAction({ username: loginUsername, password: loginPassword })
   );
 
-  if (loginState?.success) {
-    alert(`Login Success: ${loginState.message}`);
-  } else {
-    alert(`Login Failed: ${loginState?.message}`);
-  }
+  const {
+    state: registerState,
+    pending: isRegistering,
+    run: register,
+  } = useFormAction(async () =>
+    RegisterAction({
+      name: registerName,
+      username: registerUsername,
+      password: registerPassword,
+    })
+  );
+
+  // const [loginState, loginAction, isLoggingIn] = useActionState(
+  //   async () =>
+  //     LoginAction({ username: loginUsername, password: loginPassword }),
+  //   null
+  // );
+
+  // const [registerState, registerAction, isRegistering] = useActionState(
+  //   async () =>
+  //     RegisterAction({
+  //       name: registerName,
+  //       username: registerUsername,
+  //       password: registerPassword,
+  //     }),
+  //   null
+  // );
+
+  useEffect(() => {
+    if (!registerState) return;
+    if (registerState.success) {
+      alert(`Registration Success: ${registerState.message}`);
+    } else {
+      alert(`Registration Failed: ${registerState.message}`);
+    }
+  }, [registerState]);
+
+  useEffect(() => {
+    if (!loginState) return;
+    if (loginState.success) {
+      alert(`Login Success: ${loginState.message}`);
+    } else {
+      alert(`Login Failed: ${loginState.message}`);
+    }
+  }, [loginState]);
 
   return (
     <div className="grid grid-cols-12 gap-6">
@@ -34,19 +84,39 @@ export default function Auth2() {
         <div className="grow flex flex-col gap-4">
           <div className="flex gap-2 flex-col">
             <Label htmlFor="name">Name</Label>
-            <Input id="name" type="text" name="name" />
+            <Input
+              id="name"
+              type="text"
+              name="name"
+              onChange={(e) => setRegisterName(e.target.value)}
+            />
           </div>
           <div className="flex gap-2 flex-col">
             <Label htmlFor="username">Username</Label>
-            <Input type="text" name="username" />
+            <Input
+              type="text"
+              name="username"
+              onChange={(e) => setRegisterUsername(e.target.value)}
+            />
           </div>
           <div className="flex gap-2 flex-col">
             <Label htmlFor="password">Password</Label>
-            <Input type="password" name="password" />
+            <Input
+              type="password"
+              name="password"
+              onChange={(e) => setRegisterPassword(e.target.value)}
+            />
           </div>
         </div>
-        <Button type="submit" className="w-full">
-          Register
+        <Button
+          type="submit"
+          className="w-full"
+          onClick={() => {
+            register();
+          }}
+          disabled={isRegistering}
+        >
+          {isRegistering ? "Registering..." : "Register"}
         </Button>
       </form>
       <form className="col-start-7 col-span-6 border border-neutral-200 p-4 rounded-lg shadow-sm space-y-4 flex flex-col">
@@ -73,13 +143,11 @@ export default function Auth2() {
           type="button"
           className="w-full"
           onClick={() => {
-            startTransition(() => {
-              loginAction();
-            });
+            login();
           }}
           disabled={isLoggingIn}
         >
-          Login
+          {isLoggingIn ? "Logging in..." : "Login"}
         </Button>
       </form>
     </div>
